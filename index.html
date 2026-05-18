@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guillermo Balboa Baltazar — CV Profesional</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1B3A6B;
+    --navy-dark: #122848;
+    --blue: #2E75B6;
+    --blue-light: #5B9BD5;
+    --accent: #00C9A7;
+    --text: #1A1A2E;
+    --text-muted: #6B7280;
+    --bg: #F0F4F8;
+    --card: #FFFFFF;
+    --sidebar-bg: #1B3A6B;
+    --border: #E5E7EB;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ─────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(27,58,107,0.97);
+    backdrop-filter: blur(10px);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+  nav .brand { color: #fff; font-weight: 700; font-size: 1rem; letter-spacing: 0.5px; }
+  nav .links { display: flex; gap: 2rem; }
+  nav .links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  nav .links a:hover { color: var(--accent); }
+  nav .dl-btn {
+    background: var(--accent); color: #fff; border: none;
+    padding: 0.45rem 1.1rem; border-radius: 6px; font-size: 0.82rem;
+    font-weight: 600; cursor: pointer; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  nav .dl-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,201,167,0.4); }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, #24518A 100%);
+    padding: 100px 2rem 60px;
+    display: flex; justify-content: center;
+  }
+  .hero-inner {
+    max-width: 960px; width: 100%;
+    display: flex; align-items: center; gap: 3rem;
+  }
+  .hero-photo {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 4px solid var(--accent);
+    object-fit: cover; flex-shrink: 0;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  .hero-text h1 {
+    font-size: 2.4rem; font-weight: 700; color: #fff;
+    line-height: 1.15; margin-bottom: 0.5rem;
+  }
+  .hero-text .subtitle {
+    color: var(--accent); font-size: 1rem; font-weight: 500; margin-bottom: 1rem;
+  }
+  .hero-text .contact-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85);
+    padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+  }
+  .pill svg { width: 13px; height: 13px; opacity: 0.7; }
+
+  /* ── LAYOUT ──────────────────────────────────────────────── */
+  .page { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .grid { display: grid; grid-template-columns: 260px 1fr; gap: 1.8rem; align-items: start; }
+
+  /* ── CARD ────────────────────────────────────────────────── */
+  .card {
+    background: var(--card); border-radius: 14px;
+    padding: 1.6rem; margin-bottom: 1.4rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: box-shadow 0.25s;
+  }
+  .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+
+  /* ── SECTION TITLE ───────────────────────────────────────── */
+  .sec-title {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--blue);
+    margin-bottom: 1rem; padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* ── SIDEBAR ─────────────────────────────────────────────── */
+  .sidebar { position: sticky; top: 80px; }
+
+  /* skill chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    background: #EEF4FB; color: var(--navy);
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    font-size: 0.78rem; font-weight: 500;
+    border: 1px solid #C6D9EF;
+    transition: background 0.15s, color 0.15s;
+  }
+  .chip:hover { background: var(--blue); color: #fff; }
+
+  /* lang bars */
+  .lang-item { margin-bottom: 0.9rem; }
+  .lang-label { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+  .lang-label span { font-size: 0.85rem; font-weight: 600; }
+  .lang-label small { font-size: 0.75rem; color: var(--text-muted); }
+  .lang-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .lang-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--blue), var(--accent)); }
+
+  /* info rows */
+  .info-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; font-size: 0.85rem; color: var(--text-muted); }
+  .info-row svg { color: var(--blue); flex-shrink: 0; width:15px; height:15px; }
+
+  /* ── EXPERIENCE ENTRY ────────────────────────────────────── */
+  .exp-entry { margin-bottom: 1.6rem; padding-bottom: 1.6rem; border-bottom: 1px solid var(--border); }
+  .exp-entry:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .exp-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.4rem; }
+  .exp-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .exp-icon svg { width: 20px; height: 20px; color: #fff; }
+
+  .exp-title { font-size: 0.97rem; font-weight: 700; color: var(--text); }
+  .exp-company { font-size: 0.82rem; color: var(--blue); font-weight: 500; }
+  .exp-period {
+    display: inline-flex; align-items: center;
+    background: #EEF4FB; color: var(--navy);
+    padding: 0.2rem 0.6rem; border-radius: 12px;
+    font-size: 0.74rem; font-weight: 600; margin-top: 0.3rem;
+  }
+  .exp-bullets { margin-top: 0.7rem; padding-left: 1rem; }
+  .exp-bullets li { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 0.35rem; line-height: 1.5; }
+
+  /* ── EDUCATION ENTRY ─────────────────────────────────────── */
+  .edu-entry { display: flex; gap: 1rem; margin-bottom: 1.2rem; align-items: flex-start; }
+  .edu-entry:last-child { margin-bottom: 0; }
+  .edu-dot {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--blue-light));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .edu-dot svg { width: 17px; height: 17px; color: #fff; }
+  .edu-degree { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+  .edu-school { font-size: 0.8rem; color: var(--blue); margin: 0.15rem 0; }
+  .edu-period { font-size: 0.76rem; color: var(--text-muted); }
+  .edu-badge {
+    display: inline-block; background: #FFF8E1; color: #B45309;
+    border: 1px solid #FDE68A; padding: 0.15rem 0.5rem;
+    border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-top: 0.3rem;
+  }
+
+  /* ── PROFILE SUMMARY ─────────────────────────────────────── */
+  .profile-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .hero-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+    .hero-text .contact-pills { justify-content: center; }
+    nav .links { display: none; }
+    .hero-text h1 { font-size: 1.8rem; }
+  }
+
+  /* ── SCROLL ANIMATION ─────────────────────────────────────── */
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── CERTIFICATES ────────────────────────────────────────── */
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .cert-card {
+    border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 1rem; text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .cert-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(46,117,182,0.15); transform: translateY(-2px); }
+  .cert-card.pending { border-style: dashed; border-color: #D1D5DB; background: #FAFAFA; opacity: 0.75; }
+  .cert-icon {
+    width: 48px; height: 48px; border-radius: 12px; margin: 0 auto 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+  }
+  .cert-icon.green { background: linear-gradient(135deg, #059669, #10B981); }
+  .cert-icon.orange { background: linear-gradient(135deg, #D97706, #F59E0B); }
+  .cert-icon.gray { background: linear-gradient(135deg, #6B7280, #9CA3AF); }
+  .cert-icon svg { width: 22px; height: 22px; color: #fff; }
+  .cert-name { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; line-height: 1.3; }
+  .cert-inst { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .cert-year { font-size: 0.72rem; font-weight: 600; color: var(--blue); }
+  .cert-badge-pending {
+    display: inline-block; background: #FEF3C7; color: #92400E;
+    border: 1px solid #FDE68A; padding: 0.15rem 0.5rem;
+    border-radius: 10px; font-size: 0.68rem; font-weight: 600; margin-top: 0.3rem;
+  }
+  .cert-badge-ok {
+    display: inline-block; background: #D1FAE5; color: #065F46;
+    border: 1px solid #6EE7B7; padding: 0.15rem 0.5rem;
+    border-radius: 10px; font-size: 0.68rem; font-weight: 600; margin-top: 0.3rem;
+  }
+  .cert-link {
+    display: inline-block; margin-top: 0.5rem; font-size: 0.72rem;
+    color: var(--blue); text-decoration: none; font-weight: 600;
+  }
+  .cert-link:hover { text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">Guillermo Balboa</span>
+  <div class="links">
+    <a href="#perfil">Perfil</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#formacion">Formación</a>
+    <a href="#competencias">Competencias</a>
+  </div>
+  <a class="dl-btn" href="CV_Guillermo_Balboa.pdf" download>⬇ Descargar CV</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <img class="hero-photo" src="data:image/jpeg;base64,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" alt="Guillermo Balboa Baltazar">
+    <div class="hero-text">
+      <h1>Guillermo Balboa Baltazar</h1>
+      <p class="subtitle">Logística & Operaciones Portuarias &nbsp;·&nbsp; TI &nbsp;·&nbsp; Gestión de Proyectos</p>
+      <div class="contact-pills">
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.18 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+          833 141 4936
+        </span>
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          balboa_guillermo@yahoo.com
+        </span>
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Altamira, Tamaulipas
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN PAGE -->
+<main class="page">
+  <div class="grid">
+
+    <!-- ── LEFT SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- COMPETENCIAS -->
+      <div class="card fade-in" id="competencias">
+        <div class="sec-title">Competencias Clave</div>
+        <div class="chips">
+          <span class="chip">Gestión de Proyectos</span>
+          <span class="chip">Logística Portuaria</span>
+          <span class="chip">Business Intelligence</span>
+          <span class="chip">Bases de Datos</span>
+          <span class="chip">Ingeniería de Software</span>
+          <span class="chip">Análisis Financiero</span>
+          <span class="chip">Planeación Estratégica</span>
+          <span class="chip">Consultoría Empresarial</span>
+          <span class="chip">Optimización de Procesos</span>
+          <span class="chip">Liderazgo de Equipos</span>
+        </div>
+      </div>
+
+      <!-- IDIOMAS -->
+      <div class="card fade-in">
+        <div class="sec-title">Idiomas</div>
+        <div class="lang-item">
+          <div class="lang-label"><span>Español</span><small>Nativo</small></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-label"><span>Inglés</span><small>Intermedio</small></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:55%"></div></div>
+        </div>
+      </div>
+
+      <!-- INFORMACIÓN -->
+      <div class="card fade-in">
+        <div class="sec-title">Información</div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Licencia de conducir
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Vehículo propio
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN COLUMN ── -->
+    <div>
+
+      <!-- PERFIL -->
+      <div class="card fade-in" id="perfil">
+        <div class="sec-title">Perfil Profesional</div>
+        <p class="profile-text">
+          Profesional con más de <strong>25 años de experiencia</strong> en operaciones portuarias y logística, 
+          respaldado por formación académica en <strong>Administración de Tecnologías de la Información</strong> 
+          y <strong>Maestría en Gestión de Proyectos</strong>. Especialista en optimizar procesos operativos 
+          mediante soluciones tecnológicas, análisis de datos y coordinación de equipos multidisciplinarios. 
+          Orientado a posiciones gerenciales que integren la experiencia operativa de campo con visión 
+          estratégica y consultoría empresarial.
+        </p>
+      </div>
+
+      <!-- EXPERIENCIA -->
+      <div class="card fade-in" id="experiencia">
+        <div class="sec-title">Experiencia Profesional</div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l2-1.14"/><path d="M16.5 9.4L7.55 4.24"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M20.27 17.27L22 19"/></svg>
+            </div>
+            <div>
+              <div class="exp-title">Auxiliar de Tráfico y Logística</div>
+              <div class="exp-company">Asesoría Corporativa del Puerto de Altamira S.A. de C.V.</div>
+              <span class="exp-period">Oct. 2011 – Actual &nbsp;·&nbsp; 14+ años</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Gestión integral de inventarios, remisiones y despacho de tractocamiones (jaula, góndola y volteo).</li>
+            <li>Optimización de herramientas de software para control documental y gestión de archivos.</li>
+            <li>Coordinación de almacén, administración de saldos operativos y elaboración de reportes.</li>
+          </ul>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l2-1.14"/><path d="M16.5 9.4L7.55 4.24"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M20.27 17.27L22 19"/></svg>
+            </div>
+            <div>
+              <div class="exp-title">Auxiliar de Tráfico y Logística</div>
+              <div class="exp-company">Administración y Operación de Terminales, Altamira S.A. de C.V.</div>
+              <span class="exp-period">Jul. 2007 – Oct. 2011</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Pesaje y despacho de vehículos de carga con control de inventarios y formatos operativos.</li>
+            <li>Atención personalizada y telefónica a clientes; manejo de almacén y saldos.</li>
+          </ul>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+            </div>
+            <div>
+              <div class="exp-title">Operador de Grúa Pórtico / Inspector de Barco</div>
+              <div class="exp-company">Administración y Operación de Terminales, Altamira S.A. de C.V.</div>
+              <span class="exp-period">Sep. 2000 – Jul. 2007</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Operación de equipo pesado tipo almeja para descarga de buques graneleros.</li>
+            <li>Enlace operativo entre buque y terminal; coordinación de maniobras y maquinaria.</li>
+            <li>Mantenimiento preventivo y detección de fallas en equipos de operación portuaria.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FORMACIÓN -->
+      <div class="card fade-in" id="formacion">
+        <div class="sec-title">Formación Académica</div>
+
+        <div class="edu-entry">
+          <div class="edu-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <div class="edu-degree">Maestría en Gestión de Proyectos</div>
+            <div class="edu-school">Universidad del Desarrollo Profesional (UNIDEP) — Online</div>
+            <div class="edu-period">2024 – 2025</div>
+            <span class="edu-badge">Certificado en trámite</span>
+          </div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <div class="edu-degree">Lic. en Administración de Tecnologías de la Información</div>
+            <div class="edu-school">Universidad del Desarrollo Profesional (UNIDEP) — Online</div>
+            <div class="edu-period">2021 – 2024</div>
+            <span class="edu-badge">Título en trámite</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end main col -->
+  </div><!-- end grid -->
+
+      <!-- ═══════════════════════════════════════════════════════════
+           SECCIÓN DE CERTIFICADOS Y DOCUMENTOS
+           ──────────────────────────────────────────────────────────
+           CÓMO AGREGAR UN NUEVO CERTIFICADO:
+           1. Copia todo el bloque <div class="cert-card"> ... </div>
+           2. Pégalo dentro del <div class="cert-grid"> abajo
+           3. Edita el nombre, institución, año y el badge
+           4. Si tienes el certificado en PDF, ponlo en la carpeta
+              junto al HTML y cambia href="#" por href="mi_cert.pdf"
+           ═══════════════════════════════════════════════════════════ -->
+      <div class="card fade-in" id="certificados">
+        <div class="sec-title">Certificados y Documentos</div>
+        <div class="cert-grid">
+
+          <!-- ── CERTIFICADO 1 ── Licenciatura (en trámite) -->
+          <div class="cert-card pending">
+            <div class="cert-icon orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="cert-name">Lic. en Admón. de TI</div>
+            <div class="cert-inst">UNIDEP</div>
+            <div class="cert-year">2021 – 2024</div>
+            <span class="cert-badge-pending">Título en trámite</span>
+          </div>
+
+          <!-- ── CERTIFICADO 2 ── Maestría (en trámite) -->
+          <div class="cert-card pending">
+            <div class="cert-icon orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="cert-name">Maestría en Gestión de Proyectos</div>
+            <div class="cert-inst">UNIDEP</div>
+            <div class="cert-year">2024 – 2025</div>
+            <span class="cert-badge-pending">Certificado en trámite</span>
+          </div>
+
+          <!-- ── CERTIFICADO 3 ── Ejemplo ya obtenido con link -->
+          <!-- PUEDES EDITAR ESTE BLOQUE COMO EJEMPLO:
+               - Cambia "cert-icon" por "cert-icon green" si ya está obtenido
+               - Cambia cert-badge-pending por cert-badge-ok
+               - Agrega href="nombre_del_archivo.pdf" si tienes el PDF -->
+          <div class="cert-card">
+            <div class="cert-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="16 13 12 17 8 13"/><line x1="12" y1="17" x2="12" y2="11"/></svg>
+            </div>
+            <div class="cert-name">Diploma en Informática</div>
+            <div class="cert-inst">CECATI · Cd. Madero</div>
+            <div class="cert-year">1994 – 1995</div>
+            <span class="cert-badge-ok">Obtenido</span>
+            <!-- Descomenta la línea de abajo y pon el nombre de tu PDF: -->
+            <!-- <a class="cert-link" href="diploma_cecati.pdf" target="_blank">Ver documento →</a> -->
+          </div>
+
+          <!-- ════════════════════════════════════════════════════════
+               AGREGA AQUÍ TUS PRÓXIMOS CERTIFICADOS
+               Ejemplo de bloque listo para copiar y pegar:
+
+          <div class="cert-card">
+            <div class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="cert-name">NOMBRE DEL CERTIFICADO</div>
+            <div class="cert-inst">Institución que lo emite</div>
+            <div class="cert-year">AÑO</div>
+            <span class="cert-badge-ok">Obtenido</span>
+            <a class="cert-link" href="mi_certificado.pdf" target="_blank">Ver documento →</a>
+          </div>
+
+               ════════════════════════════════════════════════════════ -->
+
+        </div><!-- end cert-grid -->
+      </div><!-- end certificados card -->
+
+</main>
+
+<footer style="text-align:center; padding: 2rem; color: var(--text-muted); font-size:0.8rem;">
+  © 2026 Guillermo Balboa Baltazar &nbsp;·&nbsp; Altamira, Tamaulipas
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
